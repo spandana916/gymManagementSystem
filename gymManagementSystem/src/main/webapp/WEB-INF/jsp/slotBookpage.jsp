@@ -30,7 +30,7 @@
             padding: 10px;
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 4px;
-            background-color: rgba(255, 165, 0, 0.5); /* Transparent orange */
+            background-color: rgba(255, 165, 0, 0.5); 
         }
         .slot-details h2 {
             background-color: transparent;

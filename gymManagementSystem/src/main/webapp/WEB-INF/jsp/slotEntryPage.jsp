@@ -39,7 +39,7 @@
     }
     .form-group input[type="text"], 
     .form-group button {
-        width: calc(100% - 10px); /* Adjust for button padding */
+        width: calc(100% - 10px);
         padding: 10px;
         font-size: 16px;
         border: 1px solid #ccc;
