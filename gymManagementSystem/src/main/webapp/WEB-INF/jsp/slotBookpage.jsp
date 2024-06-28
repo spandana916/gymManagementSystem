@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: rgba(242, 242, 242, 0.8);
+            background-color: rgba(0, 0, 0, 0.5);
             margin: 0;
             padding: 0;
         }
@@ -68,9 +68,9 @@
         <div class="heading">
             <h1>Slot Details</h1>
             <div class="slot-details">
-                <h3>${slot.slotId}</h3>
-                <h2>${slot.slotTime}</h2>
-                <h1>${slot.pricing}</h1>
+                <h3>Slot Id: ${slot.slotId} </h3>
+                <h2>Slot Time: ${slot.slotTime} </h2>
+                <h1>Cost: ${slot.pricing} </h1>
             </div>
         </div>
         <hr/>

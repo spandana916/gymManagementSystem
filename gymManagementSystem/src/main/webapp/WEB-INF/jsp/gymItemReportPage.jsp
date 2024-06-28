@@ -9,10 +9,8 @@
 <title>Item List</title>
 <style>       
     body {
-        background-image:url('images/itemReports.jpg'); 
-        background-size: cover;
         font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
+        background-color: rgba(0, 0, 0, 0.5);
         margin: 0;
         padding: 0;
     }
@@ -64,9 +62,9 @@
         transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     }
     a:hover {
-        background-color: #0056b3;
+        background-color: red;
         color: white;
-        border-color: #0056b3;
+        border-color: red;
         text-decoration: none;
     }
 </style>
