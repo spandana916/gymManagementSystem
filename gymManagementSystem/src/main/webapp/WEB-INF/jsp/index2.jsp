@@ -2,21 +2,19 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+    
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="ISO-8859-1">
     <title>Decoders Gym Center</title>
-    <style>
+  <style>
         body {
             background-image: url('images/index.jpg'); 
             background-size: cover;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
             color: #333;
-            margin: 0;
-            padding: 0;
         }
         .container{
             max-width: 800px;
@@ -34,9 +32,10 @@
         h3 a {
             display: inline-block;
             color: red;
+            font-family: sans-serif-bold;
             text-decoration: none;
             padding: 14px 20px; 
-            text_align:center;
+            text-align: center;
         }
         h3 a:hover {
             color: darkred;
@@ -50,6 +49,7 @@
             float: left;
             font-size: 16px;
             color: white;
+            text-align: cover;
             padding: 14px 20px;
             text-decoration: none;
         }
@@ -84,6 +84,7 @@
         }
         
         .dropdown-content a {
+            float: none;
             color: black;
             padding: 12px 16px;
             text-decoration: none;
@@ -99,6 +100,60 @@
             display: block;
         }
         
+        .plan-container {
+            display: none;
+            justify-content: space-around;
+            margin-top: 20px;
+            background-color: rgba(255, 165, 0, 0.7); 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plan-container.active {
+            display: flex;
+        }
+        
+        .plan {
+            width: 30%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); 
+            color: #333;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .plan h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .plan p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .book-button {
+            background-color: orange;
+            color: white;
+            border: 2px solid orange;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .book-button:hover {
+            background-color: white;
+            color: orange;
+        }
+        
         .about-content {
             display: none;
             margin-top: 20px;
@@ -110,7 +165,9 @@
             display: block;
         }
         
-        .return-button {
+        .return-button.about {
+            display: none; 
+            margin-top: 10px;
             background-color: #333;
             color: white;
             border: none;
@@ -120,75 +177,62 @@
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
-            margin-top: 10px;
         }
         
-        .return-button:hover {
+        .return-button.about:hover {
+            background-color: #555;
+        }
+        
+       
+        .plan-container.active {
+            display: flex;
+        }
+        
+        .return-button.slot {
+            display: none; 
+            margin-top: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .return-button.slot:hover {
             background-color: #555;
         }
     </style>
-    
-    <script>
-        function toggleAboutContent() {
-            var aboutContent = document.querySelector('.about-content');
-            aboutContent.classList.toggle('active');
-        }
-        
-    </script>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to Decoders Gym Center</h1>
         <br/><br/>
         <div class="navbar">
-            <a href="#">Home</a>
-            <a href="#" onclick="toggleAboutContent()">About</a>
-            
-            
-            <div class="dropdown">
-                <button class="dropbtn">GymItem
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="/gymitem">Item Addition</a>
-                    <br/><br/>
-                    <a href="/gymitems">Item Reports</a>
-                </div>
-            </div>
-            
-            <div class="dropdown">
-                <button class="dropbtn">Slot
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
-                    <a href="/slot">Slot Addition</a>
-                    <br/><br/>
-                    <a href="/slots">Slot Reports</a>
-                </div>
-            </div>
-            
+           
     
-            <div class="dropdown">
+                <div class="dropdown">
                 <button class="dropbtn">Slot Booking
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href="/slots">All Slots</a>
-                    <br/><br/>
+                    <br/>
                     <a href="/bookings">All Bookings</a>
                 </div>
             </div>
             
-            <a href="#">CustomerFeedback</a>
+           
+            </div>
+            <br/><br/>
+            <h3><a href="/logout" style="color: red; padding: 14px 20px; text-decoration: none;">Logout</a></h3>
+            
         </div>
-        <br/><br/>
-        <h3><a href="/logout">Logout</a></h3>
-    </div>
-    
-    <div class="about-content" id="aboutContent">
-        <h2>About Decoders Gym Center</h2>
-        <p>Welcome to Decoders Gym Center, where fitness meets technology. We provide state-of-the-art equipment and personalized training programs to help you achieve your fitness goals.</p>
-        <button class="return-button" onclick="toggleAboutContent()">Return Back</button>
+       
+        
     </div>
 </body>
 </html>

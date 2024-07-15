@@ -2,96 +2,295 @@ package com.decoders.gymManagementSystem.controller;
 
 import java.util.List;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.decoders.gymManagementSystem.bean.GymBook;
 import com.decoders.gymManagementSystem.bean.GymItem;
+import com.decoders.gymManagementSystem.bean.Item;
 import com.decoders.gymManagementSystem.bean.Slot;
 import com.decoders.gymManagementSystem.bean.SlotItem;
 import com.decoders.gymManagementSystem.bean.SlotItemEmbed;
+import com.decoders.gymManagementSystem.dao.GymBookDao;
 import com.decoders.gymManagementSystem.dao.GymItemDao;
 import com.decoders.gymManagementSystem.dao.SlotDao;
 import com.decoders.gymManagementSystem.dao.SlotItemDao;
+import com.decoders.gymManagementSystem.exception.SeatNotAvailableException;
+import com.decoders.gymManagementSystem.service.GymItemService;
+import com.decoders.gymManagementSystem.service.GymUserService;
 
 @RestController
 public class GymController {
 	@Autowired
 	private GymItemDao gymItemDao;
-	
+
 	@Autowired
 	private SlotDao slotDao;
-	
+
 	@Autowired
 	private SlotItemDao slotItemDao;
-	
+
+	@Autowired
+	private GymItemService itemService;
+
+	@Autowired
+	private GymUserService userService;
+	@Autowired
+	private GymBookDao gymBookDao;
+
 	@GetMapping("/index")
 	public ModelAndView showIndexPage() {
-		return new ModelAndView("index");
+		String indexPage = "";
+		String userType = userService.getType();
+		if (userType.equalsIgnoreCase("Admin"))
+			indexPage = "index1";
+		else if (userType.equalsIgnoreCase("Customer"))
+			indexPage = "index2";
+		return new ModelAndView(indexPage);
 	}
 
 	@GetMapping("gymitem")
 	public ModelAndView showItemEntryPage() {
-		GymItem gymItem=new GymItem();
-		Long newId=gymItemDao.generateItemId();
+		GymItem gymItem = new GymItem();
+		Long newId = gymItemDao.generateItemId();
 		gymItem.setItemId(newId);
-		ModelAndView mv=new ModelAndView("gymItemEntryPage");
-		mv.addObject("itemRecord",gymItem);
-		return mv;		
+		ModelAndView mv = new ModelAndView("gymItemEntryPage");
+		mv.addObject("itemRecord", gymItem);
+		return mv;
 	}
+
 	@PostMapping("/gymitem")
 	public ModelAndView saveItem(@ModelAttribute("itemRecord") GymItem gymItem) {
 		gymItemDao.saveNewItem(gymItem);
-		return new ModelAndView("index");
+		// return new ModelAndView("index");
+		return new ModelAndView("redirect:/index");
 	}
+
 	@GetMapping("/gymitems")
 	public ModelAndView showItemReportPage() {
-		List<GymItem> itemList=gymItemDao.displayAllItems();
-		ModelAndView mv=new ModelAndView("gymItemReportPage");
-		mv.addObject("itemList",itemList);
+		List<GymItem> itemList = gymItemDao.displayAllItems();
+		ModelAndView mv = new ModelAndView("gymItemReportPage");
+		mv.addObject("itemList", itemList);
 		return mv;
-		}
+	}
+
 	@GetMapping("slot")
 	public ModelAndView showEntryPage() {
-		Slot slot=new Slot();
-		Long newId=slotDao.generateSlotId();
+		Slot slot = new Slot();
+		Long newId = slotDao.generateSlotId();
 		slot.setSlotId(newId);
-		ModelAndView mv=new ModelAndView("slotEntryPage");
-		mv.addObject("slotRecord",slot);
-		return mv;		
+		ModelAndView mv = new ModelAndView("slotEntryPage");
+		mv.addObject("slotRecord", slot);
+		return mv;
 	}
+
 	@PostMapping("/slot")
 	public ModelAndView saveSlot(@ModelAttribute("slotRecord") Slot slot) {
 		slotDao.saveNewSlot(slot);
-		List<GymItem> itemList=gymItemDao.displayAllItems();
-		for(GymItem item:itemList) {
-			SlotItemEmbed embed=new SlotItemEmbed(slot.getSlotId(), item.getItemId());
-			SlotItem slotItem=new SlotItem(embed);
+		List<GymItem> itemList = gymItemDao.displayAllItems();
+		for (GymItem item : itemList) {
+			SlotItemEmbed embed = new SlotItemEmbed(slot.getSlotId(), item.getItemId());
+			SlotItem slotItem = new SlotItem(embed);
 			slotItemDao.save(slotItem);
-			}
-		return new ModelAndView("index");
-	}
-	@GetMapping("/slots")
-	public ModelAndView slotReportPage(){
-		List<Slot> slotList=slotDao.displayAllSlot();
-		ModelAndView mv=new ModelAndView("slotReportPage");
-		mv.addObject("slotList",slotList);
-		return mv;
-	
-}
-	@GetMapping("/slot-show/{id}")
-	public ModelAndView showSlotEnquirePage(@PathVariable Long id) {
-		Slot slot= slotDao.findSlotById(id);
-		List<GymItem> itemList=gymItemDao.displayAllItems();
-		ModelAndView mv=new ModelAndView("slotBookpage");
-		mv.addObject("slot",slot);
-		mv.addObject("itemList",itemList);
-		itemList.forEach(item->System.out.println(item));
-		return mv;
 		}
+		// return new ModelAndView("index");
+		return new ModelAndView("redirect:/index");
+
+	}
+
+	@GetMapping("/slots")
+	public ModelAndView slotReportPage() {
+		List<Slot> slotList = slotDao.displayAllSlot();
+		ModelAndView mv = new ModelAndView("slotReportPage");
+		mv.addObject("slotList", slotList);
+		return mv;
+
+	}
+	 @GetMapping("/slot-show/{id}")  
+		public ModelAndView showSlotBookPage(@PathVariable Long id)  {
+			String fname="";
+			String userType=userService.getType();
+			if(userType.equalsIgnoreCase("Admin"))
+				fname="slotBookPage1";
+			else if(userType.equalsIgnoreCase("Customer"))
+				fname="slotBookPage2";
+			GymBook book=new GymBook();
+	    	Long newId=gymBookDao.generateBookingId();
+	    	book.setBookingId(newId);
+	    	Slot slot=slotDao.findSlotById(id);
+	    	List<Item> itemList=itemService.getItemList(id);
+			ModelAndView mv = new ModelAndView(fname);
+			mv.addObject("slot",slot);
+			mv.addObject("itemList",itemList);
+			mv.addObject("gymBookRecord",book);
+			if(userType.equalsIgnoreCase("Admin")) {
+				List<String> userList=userService.getAllCustomers();
+				mv.addObject("userList",userList);
+			}
+			return mv;
+	}
+	    
+	    @PostMapping("/slot-book")
+	    public ModelAndView saveBookingReportPage(@RequestParam("slot_id") Long slotId, @RequestParam("selectItem") Long itemId,@RequestParam("userId") String userId,@ModelAttribute("gymBookRecord") GymBook gymBook) {
+	    	String userType=userService.getType();
+	    	String username="";
+	        if (userId != null && !userId.isEmpty()) {
+	        	if(userType.equalsIgnoreCase("Admin")) 
+	        		username=userId;
+	        	else if(userType.equalsIgnoreCase("Customer"))
+	        		username=userId;
+	        } 
+	        else {
+	            org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	            username = authentication.getName();
+	        }
+	    	GymItem gymItem=gymItemDao.findItemById(itemId);
+	    	SlotItemEmbed embed=new SlotItemEmbed(slotId, itemId);
+	    	int totalSeat=gymItem.getTotalSeat();
+	    	SlotItem slotItem=slotItemDao.findItemById(embed);
+	    	int seatBooked=slotItemDao.findSeatBookedById(embed);
+	    	int available=totalSeat-seatBooked;
+	    	Long newId=gymBookDao.generateBookingId();
+	    	gymBook.setBookingId(newId);
+	    	gymBook.setSlotId(slotId);
+	        gymBook.setItemId(itemId);
+	        gymBook.setUsername(username);
+	        gymBookDao.save(gymBook);
+	    	if (available>0) {
+	    		seatBooked++;
+	    		slotItem.setSeatBooked(seatBooked);
+	    		String customerId="";
+	    		if(userId.equals("0"))
+	    			customerId=userService.getUser().getUsername();
+	    		else
+	    			customerId=userId;
+	    		slotItemDao.save(slotItem);
+	    		gymBookDao.save(gymBook);
+	    	}
+	    	else
+	    		throw new SeatNotAvailableException();
+	    	GymBook gymbook=gymBookDao.findBookInfoById(newId);
+	    	String fname="";
+			if(userType.equalsIgnoreCase("Admin"))
+				fname="bookingReportPage1";
+			else if(userType.equalsIgnoreCase("Customer"))
+				fname="bookingReportPage2";
+	    	ModelAndView mv=new ModelAndView(fname);
+			mv.addObject("gymbook",gymbook);
+	    	return mv;
+	    }
+	    
+	    @GetMapping("/slot-item-add/{id}")
+	    public ModelAndView saveItemSlots(@PathVariable Long id) {
+	    	itemService.addNewItemToSlots(id);
+	    	return new ModelAndView("redirect:/index");
+	    }
+	    
+	     @GetMapping("/bookings")
+	    public ModelAndView showSlotBookedPage(@ModelAttribute("gymBookRecord") GymBook gymBook) {
+	    	String username="";
+	    	String userType=userService.getType();
+	    	List<GymBook> bookList=gymBookDao.getBookList();
+	    	if(userType.equalsIgnoreCase("Customer")) {
+	    		org.springframework.security.core.Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	            username = authentication.getName();
+	            bookList=gymBookDao.getEntitiesByUsername(username);
+	    	}
+	    	String fname="";
+			if(userType.equalsIgnoreCase("Admin"))
+				fname="slotBookedPage1";
+			else if(userType.equalsIgnoreCase("Customer"))
+				fname="slotBookedPage2";
+	    	ModelAndView mv=new ModelAndView(fname);
+	    	mv.addObject("bookList", bookList);
+	    	return mv;
+	    }
+	     
+/*
+	@GetMapping("/slot-show/{id}")
+	public ModelAndView showSlotBookPage(@PathVariable Long id) {	
+		String fname="";
+		String userType=userService.getType();
+		if(userType.equalsIgnoreCase("Admin"))
+			fname="slotBookPage1";
+		else if(userType.equalsIgnoreCase("Customer"))
+			fname="slotBookPage2";	
+		
+		Slot slot = slotDao.findSlotById(id);
+		List<Item> itemList = itemService.getItemList(id);
+		ModelAndView mv = new ModelAndView(fname);
+		mv.addObject("slot", slot);
+		mv.addObject("itemList", itemList);
+		
+		if(userType.equalsIgnoreCase("Admin")) {
+			List<String> userList=userService.getAllCustomers();
+			//userList.forEach(u->System.out.println(u));
+			mv.addObject("userList",userList);
+		}
+		return mv;
+	} 
+	@PostMapping("/slot-book")
+	public ModelAndView saveSlotBookPage(@RequestParam("slot_id") Long slotId, @RequestParam("selectItem") Long itemId,@ModelAttribute("slotItemRecord") SlotItem slotItemRecord){
+		GymItem gymItem = gymItemDao.findItemById(itemId);
+		SlotItemEmbed embed = new SlotItemEmbed(slotId, itemId);
+		int totalSeat = gymItem.getTotalSeat();
+		SlotItem slotItem = slotItemDao.findItemById(embed);
+		int seatBooked = slotItemDao.findSeatBookedById(embed);
+		int available = totalSeat-seatBooked;
+		if(available>0) {
+    		seatBooked++;
+    		slotItem.setSeatBooked(seatBooked);
+    		slotItemDao.save(slotItem);
+    	}
+    	else {
+    		throw new SeatNotAvailableException();
+    	}
+    	return new ModelAndView("redirect:/index");
+    }
+	
+	@GetMapping("/slot-item-add/{id}")
+	public ModelAndView saveItemSlots(@PathVariable Long id) {
+		itemService.addNewItemToSlots(id);
+		// return new ModelAndView("index");
+		return new ModelAndView("redirect:/index");
+	}	
+	@GetMapping("/gym-book")
+	public ModelAndView showGymBookPage(@RequestParam("bookingId") Long bookingId,@RequestParam("slot_id") Long slotId,@RequestParam("itemId") Long itemId,@RequestParam("userName") String userName,@ModelAttribute("gymBookRecord") GymBook gymBookRecord) {
+		GymBook gymBook=new GymBook();
+		Long newId= gymBookDao.generateBookingId();
+		gymBook.setBookingId(newId);
+		ModelAndView mv = new ModelAndView("gymBookpage");
+		mv.addObject("gymBookRecord", gymBook);
+		return mv;
+	}
+
+	@PostMapping("/gym-book")
+	public ModelAndView saveBook(@ModelAttribute("gymBookRecord") GymBook gymBook) {
+		gymBookDao.save(gymBook);
+		//List<GymBook> bookList = gymBookDao.getBookList();
+		// return new ModelAndView("index");
+		return new ModelAndView("redirect:/index");
 }
+	
+	@GetMapping("/bookings")
+	public ModelAndView slotBookingReport() {
+		List<GymBook> bookList = gymBookDao.getBookList();
+		ModelAndView mv = new ModelAndView("bookingReport");
+		mv.addObject("bookList", bookList);
+		return mv;
+		
+	
+		
+	}*/
+
+}
+
 

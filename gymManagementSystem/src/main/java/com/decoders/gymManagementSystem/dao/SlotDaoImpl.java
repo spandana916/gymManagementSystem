@@ -39,7 +39,7 @@ public class SlotDaoImpl implements SlotDao {
 			val=val+1;
 		return val;
 	}
-
+	
 	
 	
 }

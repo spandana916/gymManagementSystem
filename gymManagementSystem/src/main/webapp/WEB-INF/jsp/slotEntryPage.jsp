@@ -10,7 +10,7 @@
 <title>Slot Details</title>
 <style>
 	 body {
-            background-image:url('images/slotReports.jpeg'); 
+            background-image:url('images/slotItem.jpg'); 
             background-size: cover;
     body {
         font-family: Arial, sans-serif;

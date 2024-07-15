@@ -11,6 +11,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-image: url('images/forregister.jpg'); 
+            background-size: cover;
             background-color: rgba(0, 0, 0, 0.5);
             color: #333;
             margin: 0;
@@ -18,14 +20,15 @@
         }
 
         #container {
-            width: 50%;
-            max-width: 400px; 
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #e9ecef; 
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    		width: 300%; 
+    		max-width: 500px; 
+     		height: auto;
+    		margin: 50px auto;
+    		padding: 20px;
+    		background-color: rgba(233, 236, 239, 0.8); /* Transparent gray */
+    		border-radius: 5px;
+    		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
 
         h2 {
             text-align: center;

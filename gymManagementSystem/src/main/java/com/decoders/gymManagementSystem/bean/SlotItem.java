@@ -34,6 +34,6 @@ public class SlotItem {
 	public void setSeatBooked(Integer seatBooked) {
 		this.seatBooked = seatBooked;
 	}
-
+	
 
 }

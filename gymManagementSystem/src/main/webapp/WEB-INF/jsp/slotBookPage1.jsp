@@ -76,8 +76,18 @@
         <hr/>
         <div align="center">
             <form:form action="/slot-book" method="post" modelAttribute="slotItemRecord">
+            <input type="hidden" value="${slot.slotId}" name="slot_id"/>
+            Select user Id:
+            <input list="users" name="userId"/>
+            <datalist id="users">
+            <c:forEach items="${userList}" var="user">
+                <option value="${user}"></option>
+            </c:forEach>
             
-                <input type="hidden" value="${slot.slotId}" name="slot_id"/>
+           </datalist>
+            
+            <br/>
+            <hr size="5" color="yellow"/> 
                 <table>
                     <thead>
                         <tr>
@@ -103,13 +113,15 @@
                 <br/>
                 <div align="center">
                     <button type="submit">Book</button>
-                   
                     <br/><br/>
                      <a href="/index">Return</a>
-         
                 </div>
             </form:form>
         </div>
     </div>
 </body>
 </html>
+
+
+
+

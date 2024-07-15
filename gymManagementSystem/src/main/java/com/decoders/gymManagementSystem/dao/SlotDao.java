@@ -10,7 +10,8 @@ public interface SlotDao {
 	public List<Slot> displayAllSlot();
 	public Slot findSlotById(Long id);
 	public Long generateSlotId();
+	//public Integer findTotalSeatById(Long id);
 	
-
+	
 
 }

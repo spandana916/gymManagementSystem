@@ -75,9 +75,10 @@
         </div>
         <hr/>
         <div align="center">
-            <form:form action="/slot-book" method="post" modelAttribute="slotItemRecord">
+            <form:form action="/slot-book" method="post" modelAttribute="slotItemRecord" >
             
                 <input type="hidden" value="${slot.slotId}" name="slot_id"/>
+                <input type="hidden" value="0" name="userId"/>
                 <table>
                     <thead>
                         <tr>
@@ -103,10 +104,8 @@
                 <br/>
                 <div align="center">
                     <button type="submit">Book</button>
-                   
                     <br/><br/>
                      <a href="/index">Return</a>
-         
                 </div>
             </form:form>
         </div>

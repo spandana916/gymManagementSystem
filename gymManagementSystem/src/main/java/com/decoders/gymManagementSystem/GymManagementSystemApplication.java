@@ -11,3 +11,6 @@ public class GymManagementSystemApplication {
 	}
 
 }
+
+//Apple--> lotus--> Admin
+//Mango--> Mango@1--> Customer

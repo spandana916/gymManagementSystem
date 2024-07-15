@@ -87,6 +87,7 @@
                 <td>${slot.slotTime}</td>
                 <td>${slot.pricing}</td>
                 <td><a href="/slot-show/${slot.slotId}">Enquire</a></td>
+                
             </tr>
         </c:forEach>
     </table>

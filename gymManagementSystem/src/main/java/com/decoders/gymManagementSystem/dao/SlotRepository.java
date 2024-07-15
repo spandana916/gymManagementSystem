@@ -10,5 +10,6 @@ public interface SlotRepository extends JpaRepository<Slot, Long>{
 	@Query("select max(slotId) from Slot")
 	public Long findLastSlotId();
 
+	//public Integer findTotalSeatById(Long id);
 
 }

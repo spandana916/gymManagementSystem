@@ -1,34 +1,29 @@
 package com.decoders.gymManagementSystem.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
-public class GymItem {
-	@Id
-	private  Long itemId;
+public class Item {
+	private Long itemId;
 	private String itemName;
 	private Integer totalSeat;
 	private Integer seatVacant;
-	public GymItem() {
+	public Item() {
 		super();
-		
-		
+		// TODO Auto-generated constructor stub
 	}
-	public GymItem(Item gym) {
-		super();
+	public Item(GymItem gym) {
 		this.itemId=gym.getItemId();
 		this.itemName=gym.getItemName();
 		this.totalSeat=gym.getTotalSeat();
 		this.seatVacant=0;
 	}
-	public GymItem(Long itemId, String itemName, Integer totalSeat) {
+	
+	public Item(Long itemId,String itemName, Integer totalSeat, Integer seatVacant) {
 		super();
 		this.itemId = itemId;
-		this.itemName = itemName;
+		this.itemName =itemName;
 		this.totalSeat = totalSeat;
-		
+		this.seatVacant = seatVacant;
 	}
+	
 	public Long getItemId() {
 		return itemId;
 	}
@@ -56,7 +51,6 @@ public class GymItem {
 	
 	
 	
+	
 
 }
-
-
