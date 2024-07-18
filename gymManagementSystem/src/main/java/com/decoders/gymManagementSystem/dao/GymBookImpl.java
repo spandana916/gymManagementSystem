@@ -1,6 +1,7 @@
 package com.decoders.gymManagementSystem.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,8 +52,21 @@ public class GymBookImpl implements GymBookDao {
 
 	@Override
 	public List<GymBook> getEntitiesByUsername(String username) {
-		return repository.findByUsername(username);
+		return repository.getUserwiseBookList(username);
 	}
-	
 
+	@Override
+	public Optional<GymBook> hasBookedSlot(Long slotId) {
+		return repository.findById(slotId);
+	}
+
+
+	@Override
+	public GymBook findBookingBySlotItemIdUsername(Long slotId, Long itemId, String username) {
+		
+    GymBook gymBook = repository.findBookingBySlotIdAndItemIdAndUsername(slotId, itemId, username);
+	    
+	   return gymBook;
+
+	}
 }

@@ -11,10 +11,10 @@ public interface GymBookRepository extends JpaRepository<GymBook, Long> {
 	@Query("select max(bookingId) from GymBook")
 	public Long findLastBookingId();
 	
-	@Query("SELECT gb FROM GymBook gb WHERE gb.username = :username")
-	List<GymBook> findByUsername(String username);
+	@Query("select a from GymBook a where  username = ?1")
+	public List<GymBook> getUserwiseBookList (String username);
 
-
+	public GymBook findBookingBySlotIdAndItemIdAndUsername(Long slotId, Long itemId, String username);
 	
 
 }

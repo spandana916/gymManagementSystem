@@ -26,7 +26,7 @@ public class GymUserService implements UserDetailsService{
 	 }
 	 @Override
 	 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-		// GymUser users=repository.findById(username).get();
+		//GymUser users=repository.findById(username).get();
 		 users=repository.findById(username).get();
 		 type=users.getType();
 		 return users;

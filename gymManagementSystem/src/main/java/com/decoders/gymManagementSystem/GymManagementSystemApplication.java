@@ -12,5 +12,11 @@ public class GymManagementSystemApplication {
 
 }
 
-//Apple--> lotus--> Admin
-//Mango--> Mango@1--> Customer
+// Admin --> spandana --> Spandy@1
+// Customer1 --> ramya --> Ramya#2
+// Customer2 --> preeti --> Preeti&5
+// Customer3 --> bhumi --> Bhumi@6
+// Customer4 --> shashi --> Shashi$7
+
+
+
