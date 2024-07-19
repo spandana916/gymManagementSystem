@@ -7,12 +7,44 @@
 <html>
 <head>
     <title>Login Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .error-container {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff6347; 
+        }
+        p {
+            color: #555555;
+            margin-bottom: 20px;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff; 
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<div align="center">
-    <h1>Login Error</h1></div>
-    <p>Invalid credentials. Please try again.</p>
-    <a href="loginPage.jsp">Go back to Login</a>
-    
+    <div class="error-container">
+        <h1>Login Error</h1>
+        <p>Invalid credentials. Please try again.</p>
+        <a href="loginPage.jsp">Go back to Login</a>
+    </div>
 </body>
 </html>

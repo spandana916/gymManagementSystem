@@ -61,7 +61,31 @@
         button:hover {
             background-color: rgba(76, 175, 80, 1);
         }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            display: none; 
+        }
     </style>
+    <script>
+        function validateForm() {
+            var userId = document.getElementById("userId").value;
+            if (userId.trim() === "") {
+                alert("Please select a user ID.");
+                return false; 
+            }
+            return true; 
+        }
+
+        function checkSelection() {
+            var selectedItemId = document.querySelector('input[name="selectItem"]:checked');
+            if (!selectedItemId) {
+                alert("Please select an item.");
+                return false; 
+            }
+            return true; 
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -75,19 +99,21 @@
         </div>
         <hr/>
         <div align="center">
-            <form:form action="/slot-book" method="post" modelAttribute="slotItemRecord">
-            <input type="hidden" value="${slot.slotId}" name="slot_id"/>
-            Select user Id:
-            <input list="users" name="userId"/>
-            <datalist id="users">
-            <c:forEach items="${userList}" var="user">
-                <option value="${user}"></option>
-            </c:forEach>
-            
-           </datalist>
-            
-            <br/>
-            <hr size="5" color="yellow"/> 
+            <form:form action="/slot-book" method="post" modelAttribute="slotItemRecord" onsubmit="return validateForm() && checkSelection()">
+                <input type="hidden" value="${slot.slotId}" name="slot_id"/>
+                Select user Id:
+                <input list="users" name="userId" id="userId"/>
+                <datalist id="users">
+                    <c:forEach items="${userList}" var="user">
+                        <option value="${user}"></option>
+                    </c:forEach>
+                </datalist>
+                
+                <!-- Error message for user ID selection -->
+                <div id="userIdError" class="error-message">Please select a user ID.</div>
+                
+                <br/>
+                <hr size="5" color="yellow"/> 
                 <table>
                     <thead>
                         <tr>
@@ -114,14 +140,10 @@
                 <div align="center">
                     <button type="submit">Book</button>
                     <br/><br/>
-                     <a href="/index">Return</a>
+                    <a href="/index">Return</a>                 
                 </div>
             </form:form>
         </div>
     </div>
 </body>
 </html>
-
-
-
-

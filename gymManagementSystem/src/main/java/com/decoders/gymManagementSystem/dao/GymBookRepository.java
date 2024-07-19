@@ -14,7 +14,8 @@ public interface GymBookRepository extends JpaRepository<GymBook, Long> {
 	@Query("select a from GymBook a where  username = ?1")
 	public List<GymBook> getUserwiseBookList (String username);
 
-	public GymBook findBookingBySlotIdAndItemIdAndUsername(Long slotId, Long itemId, String username);
+
+	public GymBook findBookingBySlotIdAndUsername(Long slotId, String username);
 	
 
 }

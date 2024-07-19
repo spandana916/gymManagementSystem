@@ -23,8 +23,8 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
-	z-index: -1; /* push it below other content */
+	background-color: rgba(0, 0, 0, 0.5); 
+	z-index: -1; 
 }
 
 .container {

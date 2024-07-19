@@ -13,10 +13,11 @@ public class GymManagementSystemApplication {
 }
 
 // Admin --> spandana --> Spandy@1
-// Customer1 --> ramya --> Ramya#2
-// Customer2 --> preeti --> Preeti&5
-// Customer3 --> bhumi --> Bhumi@6
-// Customer4 --> shashi --> Shashi$7
+// Customer1 --> preeti --> Preeti&5
+// Customer2 --> bhumi --> Bhumi@6
+// Customer3 --> shashi --> Shashi$7
+// Customer4 --> ramya --> Ramya#2
+// Customer5 --> varshini --> Varsha@8
 
 
 

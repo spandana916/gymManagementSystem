@@ -24,8 +24,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
-            z-index: -1; /* push it below other content */
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: -1; 
         }
 
         .container {
@@ -43,7 +43,7 @@
         }
 
         .info {
-            color: #007bff; /* Blue color for info spans */
+            color: #007bff; 
             font-weight: bold;
         }
 
@@ -58,7 +58,7 @@
         }
 
         button:hover {
-            background-color: #0056b3; /* Darker shade of blue on hover */
+            background-color: #0056b3; 
         }
     </style>
 </head>

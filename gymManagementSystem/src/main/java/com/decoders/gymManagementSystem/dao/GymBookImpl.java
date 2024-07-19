@@ -59,14 +59,9 @@ public class GymBookImpl implements GymBookDao {
 	public Optional<GymBook> hasBookedSlot(Long slotId) {
 		return repository.findById(slotId);
 	}
-
-
+	
 	@Override
-	public GymBook findBookingBySlotItemIdUsername(Long slotId, Long itemId, String username) {
-		
-    GymBook gymBook = repository.findBookingBySlotIdAndItemIdAndUsername(slotId, itemId, username);
-	    
-	   return gymBook;
-
+	public GymBook findBookingBySlotIdAndUsername(Long slotId, String username) {
+		return repository.findBookingBySlotIdAndUsername(slotId, username);
 	}
 }

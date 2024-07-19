@@ -26,8 +26,8 @@
             width: 400px;
             margin: 50px auto;
         }
-        h1 {
-            color: #333333;
+        h3 {
+            color: red;
         }
         p {
             color: #666666;
@@ -44,10 +44,9 @@
 </head>
 <body>
     <div class="error-container">
-    <h1>Error Page-1</h1>
     <p>${errorPage1}</p>
     <p>Oh Sorry!!</p>
-    <p>You have already booked a seat in this slot :(</p>
+    <h3>YOU HAVE ALREADY BOOKED A SEAT !!</h3>
     <p>Please try to book in another slot :)</p> 
     <a href="/index">Return</a>   
     </div> 
