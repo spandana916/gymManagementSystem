@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.decoders.gymManagementSystem.bean.Feedback;
 import com.decoders.gymManagementSystem.bean.GymBook;
 import com.decoders.gymManagementSystem.bean.GymItem;
 import com.decoders.gymManagementSystem.bean.Item;
 import com.decoders.gymManagementSystem.bean.Slot;
 import com.decoders.gymManagementSystem.bean.SlotItem;
 import com.decoders.gymManagementSystem.bean.SlotItemEmbed;
+import com.decoders.gymManagementSystem.dao.FeedBackDao;
 import com.decoders.gymManagementSystem.dao.GymBookDao;
 import com.decoders.gymManagementSystem.dao.GymItemDao;
 import com.decoders.gymManagementSystem.dao.SlotDao;
@@ -47,6 +50,9 @@ public class GymController {
 	private GymUserService userService;
 	@Autowired
 	private GymBookDao gymBookDao;
+	
+	@Autowired
+	private FeedBackDao feedBackDao;
 
 	@GetMapping("/index")
 	public ModelAndView showIndexPage() {
@@ -274,5 +280,48 @@ public class GymController {
 		mv.addObject("errorMessage", message);
 		return mv;
 	}
+	 @GetMapping("/feedback")
+	    public ModelAndView showFeedbackForm() {
+		  Feedback fb=new Feedback();
+		    Long newId=feedBackDao.generateFeedbackId();
+		    fb.setId(newId);
+		    ModelAndView mv = new ModelAndView("FeedbackForm");
+		    mv.addObject("feedback", fb);
+		    return mv;
+	    }
 
-}
+	  @PostMapping("/submitFeedback")
+	    public ModelAndView submitFeedback(@ModelAttribute("feedback") Feedback feedback) {
+	        feedBackDao.save(feedback);
+	        return new ModelAndView("redirect:/index");
+	    }
+	   
+
+	    @GetMapping("/admin/feedbacks")
+	    public ModelAndView viewAdminFeedbacks() {
+	        List<Feedback> feedbackList = feedBackDao.findAll();
+	        ModelAndView mv = new ModelAndView("adminFeedbacks");
+	        mv.addObject("feedbackList", feedbackList);
+	        return mv;
+	    }
+	    
+	    
+	    
+	    @GetMapping("/delete-user/{username}")
+	    public ModelAndView deleteUser(@PathVariable String username) {
+	        userService.deleteUserByUsername(username);
+	        return new ModelAndView("redirect:/index"); 
+	    }
+	    @PostMapping("/edit-slot-item")
+	    public ModelAndView editSlotItem(@ModelAttribute("slotItem") SlotItem slotItem) {
+	        slotItemDao.save(slotItem); 
+	        return new ModelAndView("redirect:/slots"); 
+	    }
+	    @PostMapping("/edit-gym-item")
+	    public ModelAndView editGymItem(@ModelAttribute("gymItem") GymItem gymItem) {
+	        gymItemDao.saveNewItem(gymItem); 
+	        return new ModelAndView("redirect:/gymitems"); 
+	    }
+
+
+	}

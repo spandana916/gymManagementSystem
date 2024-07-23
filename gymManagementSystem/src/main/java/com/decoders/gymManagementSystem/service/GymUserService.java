@@ -37,6 +37,10 @@ public class GymUserService implements UserDetailsService{
 	 public List<String> getAllCustomers(){
 		 return repository.findAllCustomerUsers();
 	 }
+	public void deleteUserByUsername(String username) {
+	
+
+	}
 	 
 
 }

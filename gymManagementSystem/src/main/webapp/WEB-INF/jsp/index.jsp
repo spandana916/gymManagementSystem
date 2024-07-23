@@ -179,7 +179,7 @@
                 </div>
             </div>
             
-            <a href="#">CustomerFeedback</a>
+            <a href="/feedback">CustomerFeedback</a>
         </div>
         <br/><br/>
         <h3><a href="/logout">Logout</a></h3>

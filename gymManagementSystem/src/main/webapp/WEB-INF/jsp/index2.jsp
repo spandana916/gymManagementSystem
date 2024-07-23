@@ -212,21 +212,19 @@
         <h1>Welcome to Decoders Gym Center</h1>
         <br/><br/>
         <div class="navbar">
-           
-    
-                <div class="dropdown">
+            <div class="dropdown">
                 <button class="dropbtn">Slot Booking
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
                     <a href="/slots">All Slots</a>
-                    <br/>
+                    <br/><br/>
                     <a href="/bookings">All Bookings</a>
                 </div>
             </div>
             
-           
-            </div>
+            <a href="/feedback">CustomerFeedback</a>
+        </div>
             <br/><br/>
             <h3><a href="/logout" style="color: red; padding: 14px 20px; text-decoration: none;">Logout</a></h3>
             

@@ -14,7 +14,6 @@ public class GymBook {
 	
 	public GymBook() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 
