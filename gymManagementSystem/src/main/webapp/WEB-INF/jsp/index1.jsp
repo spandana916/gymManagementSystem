@@ -153,6 +153,9 @@
                     <a href="/gymitem">Item Addition</a>
                     <br/><br/>
                     <a href="/gymitems">Item Reports</a>
+                    <br/><br/>
+                    <a href="/edit-item">Edit Item</a>
+                    
                 </div>
             </div>
             
@@ -164,6 +167,8 @@
                     <a href="/slot">Slot Addition</a>
                     <br/><br/>
                     <a href="/slots">Slot Reports</a>
+                    <br/><br/>
+                    <a href="/edit-slot"> Edit Slot</a>
                 </div>
             </div>
             
@@ -178,7 +183,7 @@
                     <a href="/bookings">All Bookings</a>
                 </div>
             </div>
-            
+            <a href="/customer-modification">View Customers</a>
             <a href="/admin/feedbacks">View FeedBacks</a>
         </div>
         <br/><br/>
