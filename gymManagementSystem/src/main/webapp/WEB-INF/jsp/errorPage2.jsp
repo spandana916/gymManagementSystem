@@ -8,6 +8,8 @@
 <style>
     body {
         font-family: Arial, sans-serif;
+        background-image: url('images/forregister.jpg');
+	    background-size: cover;
         background-color: #f2f2f2;
         margin: 0;
         padding: 0;
@@ -53,7 +55,7 @@
 <body>
 <div class="container">
     <div class="data">
-        <p>Oh! Sorry</p>
+        <p>Oh Sorry!!</p>
         <p>${errorMessage}</p>
         <a href="/index"><button type="button">Return to Home</button></a>
     </div>

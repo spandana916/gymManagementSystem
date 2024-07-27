@@ -328,7 +328,7 @@ public class GymController {
 	        	return new ModelAndView("redirect:/customer-modification");
 	    	}
 	    	else {
-	    		throw new OperatorException(username+" booked slots. If you want to delete "+username+" cancel the booking first");
+	    		throw new OperatorException(username+" was booked slots. If you want to delete "+username+" cancel the booking first");
 	    	}
 	    }
 	    
@@ -366,7 +366,7 @@ public class GymController {
 	    @PostMapping("/slot/update")
 	    public ModelAndView updateSlotPage(@ModelAttribute("slotRecord") Slot slot) {
 	        slotDao.saveNewSlot(slot);
-	        return new ModelAndView("redirect:/slots");
+	        return new ModelAndView("redirect:/edit-slot");
 	    }
 	    
 	    @GetMapping("/edit-item")
@@ -401,7 +401,7 @@ public class GymController {
 	    @PostMapping("/gymitem/update")
 	    public ModelAndView updateItemEntryPage(@ModelAttribute("itemRecord") GymItem gymItem) {
 	        gymItemDao.saveNewItem(gymItem);
-	        return new ModelAndView("redirect:/gymitems");
+	        return new ModelAndView("redirect:/edit-item");
 	    }
 	  
 	}

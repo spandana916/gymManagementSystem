@@ -63,15 +63,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>Edit Exercise</h1>
+        <h1>Edit Slot</h1>
         <form:form id="edit-item-form" action="/slot/update" method="post" modelAttribute="slotRecord">
             <div>
-                <label for="slotTime">Time: ${slotTime}</label>
+                <label for="slotTime">New Time: ${slotTime}</label>
                 <form:input path="slotTime"/>
             </div>
             <form:hidden path="slotId"/>
             <div>
-                <label for="pricing"> Price :</label>
+                <label for="pricing"> New Price :</label>
                 <form:input path="pricing" required="required"/>
             </div>
             <button type="submit">Update</button>

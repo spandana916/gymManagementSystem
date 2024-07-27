@@ -9,8 +9,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('images/slotItem.jpg');
-            background-size: cover;
+            background-image: url('images/forregister.jpg');
+	        background-size: cover;
             background-color: #f0f0f0;
             padding: 20px;
         }

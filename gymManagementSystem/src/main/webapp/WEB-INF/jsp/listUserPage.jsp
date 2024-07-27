@@ -10,6 +10,8 @@
 <style>
     body {
         font-family: Arial, sans-serif;
+        background-image: url('images/forregister.jpg');
+	    background-size: cover;
         background-color: #f2f2f2;
         margin: 0;
         padding: 0;

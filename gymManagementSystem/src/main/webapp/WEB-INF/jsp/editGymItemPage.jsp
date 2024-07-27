@@ -63,10 +63,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Edit Exercise</h1>
+        <h1>Edit Gym Item</h1>
         <form:form id="edit-item-form" action="/gymitem/update" method="post" modelAttribute="itemRecord">
             <div>
-                <label for="itemName">Exercise Name: ${itemName}</label>
+                <label for="itemName">New Item Name:</label>
                 <form:input path="itemName"/>
             </div>
             <form:hidden path="itemId"/>
@@ -74,7 +74,7 @@
                 <label for="totalSeat">Total Seat:</label>
                 <form:input path="totalSeat" required="required"/>
             </div>
-            <button type="submit">Update Exercise</button>
+            <button type="submit">Update Item</button>
             <br/>
             <button type="reset">Reset</button>
             <br/>
